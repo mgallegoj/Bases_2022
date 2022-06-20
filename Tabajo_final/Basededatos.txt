@@ -9,7 +9,7 @@ CREATE TABLE empeño (
     codigo INT(4) PRIMARY KEY CHECK (codigo > 0),
     valor INT(10) NOT NULL CHECK (valor > 0),
     tipo_de_objeto VARCHAR (30) NOT NULL,
-    descripcion VARCHAR (500) NOT NULL,
+    descripcion VARCHAR (500) NOT NULL
 )ENGINE = InnoDB;
 
 CREATE TABLE fiador (
@@ -27,7 +27,8 @@ CREATE TABLE contrato (
 	fecha_de_terminacion DATE NOT NULL,
     valor INT(10) NOT NULL,
     fiador INT(10) REFERENCES  fiador ON DELETE CASCADE,
-    empeño INT(4) REFERENCES empeño ON DELETE CASCADE
+    empeño INT(4) REFERENCES empeño ON DELETE CASCADE,
+    CHECK (DATE(fecha_de_terminacion) > DATE(fecha_de_inicio))
 )ENGINE = InnoDB;
 
 INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`) VALUES (1,500000,'consola de juegos','Esta es una consola en perfectas condiciones');
@@ -37,7 +38,7 @@ INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celul
 INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`, `empeño`) VALUES (1002,'Jose','Calle 3 Bello',3008523, 'JoseGod@gmail.com', NULL);
 
 INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (1002,DATE('2010-01-01'),DATE('2010-01-01'),3008000, 1002, NULL);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3020,DATE('2010-01-01'),DATE('2010-01-01'),1500000, NULL, NULL);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3020,DATE('2011-01-01'),DATE('2010-01-01'),1500000, NULL, NULL);
 
 
 
