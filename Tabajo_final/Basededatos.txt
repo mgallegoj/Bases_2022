@@ -1,24 +1,18 @@
-
-CREATE TABLE persona(cedula INT(3) UNSIGNED NOT NULL PRIMARY KEY  , nombre VARCHAR(40) NOT NULL, direccion VARCHAR(40) ,telefono VARCHAR(40))ENGINE = InnoDB;
-
-
-
-
-
-CREATE TABLE empeño (
-    codigo INT(4) PRIMARY KEY CHECK (codigo > 0),
-    valor INT(10) NOT NULL CHECK (valor > 0),
-    tipo_de_objeto VARCHAR (30) NOT NULL,
-    descripcion VARCHAR (500) NOT NULL
-)ENGINE = InnoDB;
-
 CREATE TABLE fiador (
     numero_de_cedula INT(10) PRIMARY KEY CHECK (numero_de_cedula > 0),
 	nombre VARCHAR(100) NOT NULL,
     direccion VARCHAR(50) NOT NULL,
     numero_de_celular INT(10) NOT NULL CHECK (numero_de_celular > 0),
-	correo_electronico VARCHAR(30),
-    empeño INT(4) REFERENCES empeño ON DELETE CASCADE
+	correo_electronico VARCHAR(30)
+)ENGINE = InnoDB;
+
+CREATE TABLE empeño (
+    codigo INT(4) PRIMARY KEY CHECK (codigo > 0),
+    valor INT(10) NOT NULL CHECK (valor > 0),
+    tipo_de_objeto VARCHAR (30) NOT NULL,
+    descripcion VARCHAR (500) NOT NULL,
+    fiador INT(10),
+    FOREIGN KEY (fiador) REFERENCES fiador(numero_de_cedula) ON DELETE CASCADE
 )ENGINE = InnoDB;
 
 CREATE TABLE contrato (
@@ -26,45 +20,22 @@ CREATE TABLE contrato (
 	fecha_de_inicio DATE NOT NULL,
 	fecha_de_terminacion DATE NOT NULL,
     valor INT(10) NOT NULL,
-    fiador INT(10) REFERENCES  fiador ON DELETE CASCADE,
-    empeño INT(4) REFERENCES empeño ON DELETE CASCADE,
+    fiador INT(10),
+    empeño INT(4),
+    FOREIGN KEY (fiador) REFERENCES fiador(numero_de_cedula) ON DELETE CASCADE,
+    FOREIGN KEY (empeño) REFERENCES empeño(codigo) ON DELETE CASCADE,
     CHECK (DATE(fecha_de_terminacion) > DATE(fecha_de_inicio))
 )ENGINE = InnoDB;
 
-INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`) VALUES (1,500000,'consola de juegos','Esta es una consola en perfectas condiciones');
-INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`) VALUES (2,10000,'DVD','Presenta fallas');
+INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1001,'Manuel','Calle 2 Rionegro',300140, 'mgalle@gmail.com');
+INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1002,'Jose','Calle 3 Bello',3008523, 'JoseGod@gmail.com');
+INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1003,'Geronimo','Calle 2',30085221, 'GeroGod@gmail.com');
 
-INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`, `empeño`) VALUES (1001,'Manuel','Calle 2 Rionegro',300140, 'mgalle@gmail.com', 1);
-INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`, `empeño`) VALUES (1002,'Jose','Calle 3 Bello',3008523, 'JoseGod@gmail.com', NULL);
+INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (1,5000,'consola de juegos','Esta es una consola en perfectas condiciones', 1001);
+INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (2,10000,'DVD','Presenta fallas', 1002);
+INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (3,10000000,'carro','Presenta llantas', 1003);
 
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (1002,DATE('2010-01-01'),DATE('2010-01-01'),3008000, 1002, NULL);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3020,DATE('2010-01-01'),DATE('2010-01-01'),1500000, NULL, NULL);
-
-
-
-
-
-CREATE TABLE empresa(nit INT(3) UNSIGNED  NOT NULL PRIMARY KEY,nombre VARCHAR(40) NOT NULL, direccion VARCHAR(40) NOT NULL,pagina_web VARCHAR(40))ENGINE = InnoDB;
-
-CREATE TABLE factura(codigo INT NOT NULL PRIMARY KEY,fecha DATE NOT NULL, valor VARCHAR(40),
-fecha_retorno DATE,
-tipo VARCHAR(1),
-cedula_p INT(3) UNSIGNED,
-FOREIGN KEY fk_p(cedula_p) REFERENCES persona(cedula)  ON DELETE CASCADE,
-nit_E INT(3) UNSIGNED,
-FOREIGN KEY fk_e(nit_e) REFERENCES empresa(nit) ON DELETE CASCADE
-)
-ENGINE = InnoDB;
-
-
-INSERT INTO `empresa`(`nit`, `nombre`, `direccion`, `pagina_web`) VALUES (1,'postobon','CR-1 Cl-2 ','www.postobon.com');
-INSERT INTO `empresa`(`nit`, `nombre`, `direccion`, `pagina_web`) VALUES (2,'cocacola','CR-2 cl-3','www.cocacola.com');
-
-INSERT INTO `persona`(`cedula`, `nombre`, `DIRECCION`, `telefono`) VALUES (1,'Jota Mario Valencia','Cielo','302456789');
-INSERT INTO `persona`(`cedula`, `nombre`, `DIRECCION`, `telefono`) VALUES (2,'Marbelle Ramirez','Buenaventura','302356789');
-
-INSERT INTO `factura`(`codigo`, `fecha`, `valor`, `fecha_retorno`, `tipo`, `cedula_p`) VALUES (1,DATE('2010-01-01'),500,DATE('2010-02-01'),'P',1);
-INSERT INTO `factura`(`codigo`, `fecha`, `valor`, `fecha_retorno`, `tipo`, `cedula_p`) VALUES (2,DATE('2012-05-01'),500,DATE('2016-02-01'),'P',2);
-
-INSERT INTO `factura`(`codigo`, `fecha`, `valor`, `tipo`, `nit_e`) VALUES (3,DATE('2010-01-01'),50000,'C',1);
-INSERT INTO `factura`(`codigo`, `fecha`, `valor`, `tipo`, `nit_e`) VALUES (4,DATE('2012-05-01'),50000,'C',2);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (1052,DATE('2010-01-01'),DATE('2010-01-01'),3008000, 1002, 2);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3020,DATE('2010-01-01'),DATE('2010-01-01'),1500000, 1001, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3021,DATE('2010-01-01'),DATE('2010-01-01'),1500000, 1003, 3);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3022,DATE('2010-01-01'),DATE('2010-01-01'),15000000, 1003, 2);
