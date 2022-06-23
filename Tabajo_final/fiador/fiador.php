@@ -24,15 +24,30 @@
 <body>
     <!--Barra de navegacion-->
     <ul class="nav">
-        <li class="nav nav-item">
-            <a class="nav-link " href="../index.html">Inicio</a>
+    <li class="nav nav-pills">
+            <a class="nav-link active" href="../index.html">Inicio</a>
         </li>
-        <li class="nav nav-pills">
-            <a class="nav-link active" href="../fiador/fiador.php">Fiador</a>
-        </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../facturas/facturas.php">Facturas</a>
+            <a class="nav-link active" href="../fiador/fiador.php">Insertar fiador</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="../empeno/empeno.php">Insertar empeño</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../contrato/contrato.php">Insertar contrato</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../consultas/consultas.php">Consultas</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../busquedas/busquedas.php">Busquedas</a>
+        </li>
+
     </ul>
     <div class="container mt-3">
         <div class="row">
@@ -49,29 +64,34 @@
                         <form action="actualizar_f.php" class="form-group" method="post">
                             <div class="form-group">
                                 <label for="cedula">Número de cedula</label>
-                                <input type="text" readonly name="cedula" value=<?=$_POST["cedula"];?> id="cedula"
+                                <input type="text" readonly name="cedula" value=<?=$_GET["cedula"];?> id="cedula"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Nombre</label>
-                                <input type="text" name="nombre" value='<?=$_POST["nombre"];?>' id="name" class="form-control">
+                                <input type="text" name="nombre" value='<?=$_GET["nombre"];?>' id="name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Direccion</label>
-                                <input type="text" name="direccion" value='<?=$_POST["direccion"];?>' id="direccion" class="form-control">
+                                <input type="text" name="direccion" value='<?=$_GET["direccion"];?>' id="direccion" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Numero de celular</label>
-                                <input type="text" name="telefono" value=<?=$_POST["telefono"];?> id="telefono" class="form-control">
+                                <input type="text" name="telefono" value=<?=$_GET["telefono"];?> id="telefono" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Correo electronico</label>
-                                <input type="text" name="correo" value=<?=$_POST["correo"];?> id="correo" class="form-control">
+                                <?php
+                                    if ($_GET["correo"] == NULL){?>
+                                        <input type="text" name="correo" value="" id="correo" class="form-control">        
+                                    <?php } else { ?>
+                                        <input type="text" name="correo" value=<?=$_GET["correo"];?> id="correo" class="form-control">
+                                    <?php } ?>  
                             </div>
 
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Guardar">
-                                <a href="personas.php" class="btn btn-danger">Descartar</a>
+                                <a href="fiador.php" class="btn btn-danger">Descartar</a>
                                 
                             </div>
 
@@ -94,19 +114,19 @@
                         <form action="insertar_f.php" class="form-group" method="post">
                             <div class="form-group">
                                 <label for="cedula">Número de cédula</label>
-                                <input type="text" name="cedula" id="cedula" class="form-control">
+                                <input type="text" name="cedula" id="cedula" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Nombre</label>
-                                <input type="text" name="name" id="name" class="form-control">
+                                <input type="text" name="name" id="name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Dirección</label>
-                                <input type="text" name="direccion" id="direccion" class="form-control">
+                                <input type="text" name="direccion" id="direccion" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Número de celular</label>
-                                <input type="text" name="telefono" id="telefono" class="form-control">
+                                <input type="text" name="telefono" id="telefono" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Correo electrónico</label>
@@ -115,7 +135,7 @@
 
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Registrar">
-                                <a href="personas.php" class="btn btn-success">Borrar</a>
+                                <a href="fiador.php" class="btn btn-success">Borrar</a>
                             </div>
                             
 
@@ -163,6 +183,20 @@
                                             class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>
+
+                            <td class="mx-0 pr-2">
+                                <form action="fiador.php" method="GET">
+                                    
+                                    <input type="text" name="cedula" value="<?=$fila['numero_de_cedula'];?>" hidden>
+                                    <input type="text" name="nombre" value="<?=$fila['nombre'];?>" hidden>
+                                    <input type="text" name="direccion" value="<?=$fila['direccion'];?>" hidden>
+                                    <input type="text" name="telefono" value="<?=$fila['numero_de_celular'];?>" hidden>
+                                    <input type="text" name="correo" value="<?=$fila['correo_electronico'];?>" hidden>
+
+                                    <button class="btn btn-primary" title="Editar" type="submit"><i
+                                            class="far fa-edit"></i></button>
+                                </form>
+                            </td>
                         </tr>
                         <?php                    
 
@@ -178,10 +212,6 @@
 
 
     </div>
-
-
-
-
 </body>
 
 </html>

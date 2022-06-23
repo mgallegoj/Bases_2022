@@ -24,17 +24,28 @@
 <body>
     <!--Barra de navegacion-->
     <ul class="nav">
-        <li class="nav nav-item">
-            <a class="nav-link " href="../index.html">Inicio</a>
+    <li class="nav nav-pills">
+            <a class="nav-link active" href="../index.html">Inicio</a>
         </li>
-        <li class="nav ">
-            <a class="nav-link " href="../personas/personas.php">Personas</a>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../fiador/fiador.php">Insertar fiador</a>
         </li>
-        <li class="nav">
-            <a class="nav-link" href="../facturas/facturas.php">Facturas</a>
+
+        <li class="nav-item">
+            <a class="nav-link" href="../empeno/empeno.php">Insertar empeño</a>
         </li>
-        <li class="nav-item nav-pills">
-            <a class="nav-link active" href="busquedas.php">Busquedas</a>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../contrato/contrato.php">Insertar contrato</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../consultas/consultas.php">Consultas</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../busquedas/busquedas.php">Busquedas</a>
         </li>
     </ul>
     <main>

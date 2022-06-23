@@ -11,7 +11,7 @@ CREATE TABLE empeno (
     valor INT(10) NOT NULL CHECK (valor > 0),
     tipo_de_objeto VARCHAR (30) NOT NULL,
     descripcion VARCHAR (500) NOT NULL,
-    fiador INT(10),
+    fiador INT(10) UNIQUE,
     FOREIGN KEY (fiador) REFERENCES fiador(numero_de_cedula) ON DELETE CASCADE
 )ENGINE = InnoDB;
 

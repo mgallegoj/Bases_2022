@@ -24,20 +24,35 @@
 <body>
     <!--Barra de navegacion-->
     <ul class="nav">
-        <li class="nav nav-item">
-            <a class="nav-link " href="../index.html">Inicio</a>
+    <li class="nav nav-pills">
+            <a class="nav-link active" href="../index.html">Inicio</a>
         </li>
-        <li class="nav nav-pills">
+
+        <li class="nav-item">
             <a class="nav-link active" href="../fiador/fiador.php">Insertar fiador</a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" href="../empeno/empeno.php">Insertar empeño</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../contrato/contrato.php">Insertar contrato</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../consultas/consultas.php">Consultas</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="../busquedas/busquedas.php">Busquedas</a>
+        </li>
+
     </ul>
     <div class="container mt-3">
         <div class="row">
             <?php
-                if(isset($_GET["cedula"])){
+                if(isset($_GET["codigo"])){
              ?>
             <div class="col-6 px-2">
                 <div class="card">
@@ -49,29 +64,40 @@
                         <form action="actualizar_e.php" class="form-group" method="post">
                             <div class="form-group">
                                 <label for="codigo">Código</label>
-                                <input type="text" readonly name="codigo" value=<?=$_POST["codigo"];?> id="codigo"
-                                    class="form-control">
+                                <input type="text" readonly name="codigo" value=<?=$_GET["codigo"];?> id="codigo" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Valor</label>
-                                <input type="text" name="valor" value='<?=$_POST["valor"];?>' id="valor" class="form-control">
+                                <input type="text" name="valor" value='<?=$_GET["valor"];?>' id="valor" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Tipo de objeto</label>
-                                <input type="text" name="tipo" value='<?=$_POST["tipo"];?>' id="tipo" class="form-control">
+                                <input type="text" name="tipo" value='<?=$_GET["tipo"];?>' id="tipo" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Descripción</label>
-                                <input type="text" name="descripcion" value=<?=$_POST["descripcion"];?> id="descripcion" class="form-control">
+                                <input type="text" name="descripcion" value=<?=$_GET["descripcion"];?> id="descripcion" class="form-control" required>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="">Fiador dueño</label>
-                                <input type="text" name="fiador" value=<?=$_POST["fiador"];?> id="fiador" class="form-control">
+                                <select name="fiador">
+                                    <option value="NULL"></option>
+                                <?php 
+                                   require('seleccionar_f.php');
+                                   if($result){
+                                        foreach ($result as $fila){
+                                          echo "<option value=$fila[numero_de_cedula]> $fila[numero_de_cedula]</option>";                   
+                                       }
+                                }
+                                ?>
+                                </select>
+
                             </div>
 
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Guardar">
-                                <a href="personas.php" class="btn btn-danger">Descartar</a>
+                                <a href="empeno.php" class="btn btn-danger">Descartar</a>
                                 
                             </div>
 
@@ -94,48 +120,39 @@
                         <form action="insertar_e.php" class="form-group" method="post">
                             <div class="form-group">
                                 <label for="codigo">Código</label>
-                                <input type="text" name="codigo" id="codigo" class="form-control">
+                                <input type="text" name="codigo" id="codigo" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Valor</label>
-                                <input type="text" name="valor" id="valor" class="form-control">
+                                <input type="text" name="valor" id="valor" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Tipo de objeto</label>
-                                <input type="text" name="tipo" id="tipo" class="form-control">
+                                <input type="text" name="tipo" id="tipo" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Descripcion</label>
-                                <input type="text" name="descripcion" id="descripcion" class="form-control">
+                                <label for="">Descripción</label>
+                                <input type="text" name="descripcion" id="descripcion" class="form-control" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="">Fiador dueño</label>
-                                <input type="text" name="fiador" id="fiador" class="form-control">
-                            </div>
-                            <!--<div class="form-group">
-                                <label for="">Fiador propietario</label>
                                 <select name="fiador">
-                                ///<?php 
-                                 ///   require('seleccionar_f.php');
-                                  ///  if($result){
-                                    ///    foreach ($result as $fila){
-                                   ///         echo "<option value=$fila'['numero_de_cedula']'> $fila'['numero_de_cedula']'</option>";
-                                ?>
-
-
-                                <?php                    
-
-                                     ///   }
-                                   /// }
-
+                                    <option value="NULL"></option>
+                                <?php 
+                                   require('seleccionar_f.php');
+                                   if($result){
+                                        foreach ($result as $fila){
+                                          echo "<option value=$fila[numero_de_cedula]> $fila[numero_de_cedula]</option>";                   
+                                       }
+                                }
                                 ?>
                                 </select>
-                            </div>-->
+
+                            </div>
 
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Registrar">
-                                <a href="personas.php" class="btn btn-success">Borrar</a>
+                                <a href="empeno.php" class="btn btn-success">Borrar</a>
                             </div>
                             
 
@@ -181,6 +198,20 @@
                                     <input type="text" name="d" value=<?=$fila['codigo'];?> hidden>
                                     <button class="btn btn-danger" title="Eliminar" type="submit"><i
                                             class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+
+                            <td class="mx-0 pr-2">
+                                <form action="empeno.php" method="GET">
+                                    
+                                    <input type="text" name="codigo" value="<?=$fila['codigo'];?>" hidden>
+                                    <input type="text" name="valor" value="<?=$fila['valor'];?>" hidden>
+                                    <input type="text" name="tipo" value="<?=$fila['tipo_de_objeto'];?>" hidden>
+                                    <input type="text" name="descripcion" value="<?=$fila['descripcion'];?>" hidden>
+                                    <input type="text" name="fiador" value="<?=$fila['fiador'];?>" hidden>
+
+                                    <button class="btn btn-primary" title="Editar" type="submit"><i
+                                            class="far fa-edit"></i></button>
                                 </form>
                             </td>
                         </tr>
