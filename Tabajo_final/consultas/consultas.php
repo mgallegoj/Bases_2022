@@ -32,23 +32,32 @@
                         require('../configuraciones/conexion.php');
                         if ($_GET['consulta'] == '1') {
                             $query="SELECT numero_de_cedula, nombre FROM fiador WHERE EXISTS(SELECT fiador AS fiador_emp FROM empeno WHERE empeno.fiador = numero_de_cedula) AND ((SELECT SUM(valor) FROM empeno WHERE empeno.fiador = numero_de_cedula) > 1000) AND ((SELECT COUNT(fiador) FROM contrato WHERE contrato.fiador = numero_de_cedula) >= 3) AND (SELECT COUNT(empeno) FROM contrato WHERE contrato.empeno = (SELECT codigo AS codigo_emp FROM empeno WHERE empeno.fiador = numero_de_cedula)) = 0";
-                            $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                            if($sumavalor){
-                                $cont=0;
-                                foreach($sumavalor as $fila){
-                                    if($cont<2){
-                                    $cont=$cont+1;
-                                    ?>
-                                    <div class="Ganadores col-md-5">
-                                        <h3>Ganador <?=$cont?></h3>
-                                        <p><strong>Username: </strong> <?=$fila['nickname'];?></p>
-                                        <p><strong>Email: </strong> <?=$fila['email'];?></p>
-                                        <p><strong>SumaValor: </strong> <?=$fila['sumavalor'];?></p>
-                                </div>
+                            $consulta1 = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                            <table class="table border-rounded table-bordered table-hover">
+                                <thead>
+                                    <tr class="table-dark">
+                                        <th scope="col">Número de documento</th>
+                                        <th scope="col">Nombre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if($consulta1){
+                                    foreach($consulta1 as $fila){
+                                        ?>
+                                <tr>
+                                    <td>
+                                    <?=$fila['codigo'];?>
+                                    </td>
+                                    <td>
+                                    <?=$fila['valor'];?>
+                                    </td>
                                     <?php
+                                    
                                 }
                             }
-                        }
+                                </tbody>
+                            </table>
                     } else{
                             $query="SELECT codigo, valor FROM contrato WHERE valor > (SELECT valor AS valor_emp FROM empeno WHERE contrato.empeno = empeno.codigo) AND (contrato.fiador = (SELECT fiador AS fiador_emp FROM empeno WHERE contrato.empeno = empeno.codigo))";
                             $consulta2 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
