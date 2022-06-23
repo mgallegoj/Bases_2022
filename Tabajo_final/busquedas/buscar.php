@@ -29,31 +29,48 @@
                 </tr>
             </thead>
             <tbody>
-            <?php
-                    require('../configuraciones/conexion.php');
-                    if($_POST["exampleRadios"]==="comprador"){
-                        $query="SELECT * FROM factura WHERE cedula_p='$_POST[identificacion]' OR nit_E='$_POST[identificacion]'";
-                    }
-                    else{
-                        $query="SELECT * FROM factura WHERE codigo='$_POST[identificacion]'";
-                    }                    
-                    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                    if($result){
-                        foreach($result as $fila){
-                        ?>
-                            <tr>
-                                <td><?=$fila['codigo'];?></td>
-                                <td><?=$fila['fecha'];?></td>
-                                <td><?=$fila['valor'];?></td>
-                                <td><?=$fila['tipo'];?></td>
-                            </tr>
-                        <?php
-                        }
-                    }
-                    else{
-                        echo "Ha ocurrido un error al buscar, intenta de nuevo";
-                    }
-            ?>
+            <?php if (isset($_GET['busqueda'])) {
+    require('../configuraciones/conexion.php');
+    if ($_GET['busqueda'] == '1') {
+        $fa = $_GET['inf'] # <------------ REVISAR ESTO
+        $fb = $_GET['sup'] #<<------------- REVISAR ESTO                                                                                                                                                                                                                                                          ##REVISAR ESTO                    
+        $query=sprintf("SELECT Codigo, Tipo, contador FROM (SELECT Codigo, Tipo, COUNT(*) AS contador FROM (SELECT empeño.codigo AS Codigo, tipo_de_objeto AS Tipo FROM empeño LEFT JOIN contrato ON empeño.codigo = contrato.empeño) AS pito GROUP BY Codigo) AS finale WHERE contador  BETWEEN '%s' AND '%s';", $fa, $fb);
+        $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        if($sumavalor){
+            foreach($sumavalor as $fila){?>
+            <tr>
+                            <td>
+                            <?=$fila['Codigo'];?>
+                            </td>
+                            <td>
+                            <?=$fila['Tipo'];?>
+                            </td>
+            </tr><?php
+            }
+        }
+    } 
+    else {
+        $f1= date_create_from_format("Y-m-d",$_GET['fecha1'])->format("Y/m/d");
+        $f2= date_create_from_format("Y-m-d",$_GET['fecha2'])->format("Y/m/d");
+        #$f3= $_GET['nproy'] <<<------ Revisar esto                                                                                                                                                                                                                                                                                                                           REVISAR este f3             
+        $query=sprintf("SELECT Cedula, Celular FROM (SELECT Cedula, Celular, COUNT(*) AS contador FROM (SELECT numero_de_cedula as Cedula, numero_de_celular AS celular FROM fiador LEFT JOIN contrato on fiador.numero_de_cedula = contrato.fiador WHERE (contrato.fecha_de_inicio BETWEEN '%s' and '%s') ) AS solofecha GROUP BY Cedula) AS final WHERE contador <= '%s');",$f1,$f2,$f3);
+        $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+        
+        if($sumavalor){
+            foreach($sumavalor as $fila){?>
+            <tr>
+                            <td>
+                            <?=$fila['email'];?>
+                            </td>
+                            <td>
+                            <?=$fila['pass'];?>
+                            </td>
+            </tr><?php
+            }
+        }
+    }
+}?>
 
             </tbody>
         </table>

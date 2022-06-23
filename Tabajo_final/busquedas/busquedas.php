@@ -1,5 +1,8 @@
-<!DOCTYPE html>
+<!-- En esta pagina puede encontrar mas informacion acerca de la estructura de un documento html 
+    http://www.iuma.ulpgc.es/users/jmiranda/docencia/Tutorial_HTML/estruct.htm-->
+    <!DOCTYPE html>
 <html lang="en">
+<!--cabecera del html -->
 
 <head>
     <!--configuraciones basicas del html-->
@@ -39,33 +42,31 @@
             <div class="row">
                 <div class="col-md-3 opciones">
                     <div class="card-header">
-                        ¿Qué consulta desea realizar?
+                        ¿Qué busqueda desea realizar?
                     </div>
                     <div class="card-body">
-                        <form action="busquedas.php" method="get">
+                        <form action="buscar.php" method="get">
                             <div class="form-group">
                                 <input class="form-check-input" type="radio" name="busqueda" value="1">
-                                <label class="form-check-label" for="busqueda">Busqueda por rango de proyectos revisados</label>
+                                <label class="form-check-label" for="busqueda">Busqueda 1</label>
                             </div>
                             <div class="form-group">
-                                <label>Ingrese el limite inferior (n1)</label>
-                                <input class="form-control" type="number" min=0 name="posicion">
-                            </div>
-                            <div class="form-group">
-                                <label>Ingrese el limite superior (n2)</label>
-                                <input class="form-control" type="number" min=0 name="posicion">
+                                <label>Ingrese el numero minimo de empenos (n1)</label>
+                                <input class="form-control" type="number" min=1 name="sup" id="sup">
+                                <label>Ingrese el número maximo de empenos (n2)</label>
+                                <input class="form-control" type="number" min=1 name="inf" id="inf">
                             </div>
                             <div class="form-group">
                                 <input class="form-check-input" type="radio" name="busqueda" value="2">
-                                <label class="form-check-label" for="busqueda">Rango de fecha con numero de proyectos exactos</label>
+                                <label class="form-check-label" for="busqueda">Busqueda 2</label>
                             </div>
                             <div class="form-group">
                                 <label>Ingrese la fecha inicial (f1)</label>
-                                <input class="form-control" type="date" name="factura1" id="factura1" >
+                                <input class="form-control" type="date" name="fecha1" id="fecha1" >
                             </div>
                             <div class="form-group">
                                 <label>Ingrese la fecha final (f2)</label>
-                                <input class="form-control" type="date" name="factura2" id="factura2">
+                                <input class="form-control" type="date" name="fecha2" id="fecha2">
                             </div>
                             <div class="form-group d-grid gap-2">
                                 <input type="submit" class="btn btn-primary" value="Buscar">
@@ -76,105 +77,10 @@
                 <div class="col-md-9 respuesta">
                     <h2>Resultados de la busqueda</h2>
                     <div class="row">
-<?php if (isset($_GET['busqueda'])) {
-    require('../configuraciones/conexion.php');
-    if ($_GET['busqueda'] == '1') {
-        $query="SELECT email, pass, nickname, SUM(IF(cantpaneles IS NULL, 0,cantpaneles)) AS sumavalor FROM usuario U LEFT JOIN factura F ON U.email = F.comprador GROUP BY U.email ORDER BY sumavalor DESC, email;";
-        $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));
-        $field= $_GET['posicion'];
-        if($sumavalor){
-            $cont=0;
-            $anterior="";
-            foreach($sumavalor as $fila){
-                
-                if ($cont == $field-1 ) {
-                    ?>
-                                    <div class="Ganadores col-md-5">
-                                        <h3>Usuario en la posición <?=$field;?></h3>
-                                        <p><strong>Username: </strong>
-                                            <?=$fila['nickname'];?>
-                                        </p>
-                                        <p><strong>Email: </strong>
-                                            <?=$fila['email'];?>
-                                        </p>
-                                        <p><strong>SumaValor: </strong>
-                                            <?=$fila['sumavalor'];?>
-                                        </p>
-                                    </div><?php
-                }
-                $cont=$cont+1;
-            }
-        }
-    } 
-    else {
-        $f1= date_create_from_format("Y-m-d",$_GET['factura1'])->format("Y/m/d");
-        $f2= date_create_from_format("Y-m-d",$_GET['factura2'])->format("Y/m/d");
-        $query=sprintf("SELECT U.pass, U.email FROM usuario U LEFT JOIN factura F ON U.email = F.comprador EXCEPT (SELECT U.pass, U.email FROM usuario U LEFT JOIN factura F ON U.email = F.comprador WHERE fechacompra BETWEEN '%s' AND '%s')",$f1,$f2);
-        $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));
-        ?>
-        
-        <table class="table border-rounded table-bordered table-hover">
-                            <thead>
-                                <tr class="table-dark">
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Pass</th>
-                                </tr>
-                            </thead>
-                            <tbody><?php
-        if($sumavalor){
-            foreach($sumavalor as $fila){?>
-            <tr>
-                            <td>
-                            <?=$fila['email'];?>
-                            </td>
-                            <td>
-                            <?=$fila['pass'];?>
-                            </td>
-            </tr><?php
-            }
-        }
-    }
-}?>
-                    </tbody>
-                            </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-</body>
 
-<style>
-    .container {
-        margin: 3% 2%;
-    }
-    
-    .opciones {
-        border-right: 5px solid;
-    }
-    
-    .Ganadores {
-        margin: 0% 3% 4%;
-        border: 1px solid lightslategray;
-        border-radius: 10px;
-        padding: 0% 2% 2% 2%;
-    }
-    
-    h2 {
-        margin-bottom: 3%;
-    }
-    
-    .Ganadores h3 {
-        background: var(--cuatro);
-        color: white;
-        width: 119%;
-        padding: 2% 6%;
-        position: relative;
-        border-radius: 10px;
-        left: -9%;
-        top: -12px;
-        border: 2px solid #62a163;
-    }
-</style>
+
+
+
+</body>
 
 </html>
