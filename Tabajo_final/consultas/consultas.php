@@ -1,8 +1,4 @@
- <?php include('../Otros/header.php')?>
-
-
 <body>
-    <?php include('../Otros/navbar.php')?>
     <main>
         <div class="container">
             <div class="row">
@@ -54,26 +50,26 @@
                             }
                         }
                     } else{
-                            $query="SELECT codigo, valor FROM contrato WHERE valor > (SELECT valor AS valor_emp FROM empeño WHERE contrato.empeño = empeño.codigo) AND (contrato.fiador = (SELECT fiador AS fiador_emp FROM empeño WHERE contrato.empeño = empeño.codigo))";
-                            $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
+                            $query="SELECT codigo, valor FROM contrato WHERE valor > (SELECT valor AS valor_emp FROM empeno WHERE contrato.empeno = empeno.codigo) AND (contrato.fiador = (SELECT fiador AS fiador_emp FROM empeno WHERE contrato.empeno = empeno.codigo))";
+                            $consulta2 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
                             <table class="table border-rounded table-bordered table-hover">
                             <thead>
                                 <tr class="table-dark">
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Código del contrato</th>
+                                    <th scope="col">Valor del contrato</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php
-                            if($sumavalor){
-                                foreach($sumavalor as $fila){
+                            if($consulta2){
+                                foreach($consulta2 as $fila){
                                     ?>
                         <tr>
                             <td>
-                            <?=$fila['nickname'];?>
+                            <?=$fila['codigo'];?>
                             </td>
                             <td>
-                            <?=$fila['email'];?>
+                            <?=$fila['valor'];?>
                             </td>
                                     <?php
                                 }
@@ -89,7 +85,6 @@
         </div>
     </main>
 </body>
-<?php include('../Otros/footer.php')?>
 <style>
     .container {
         margin: 3% 2%;
