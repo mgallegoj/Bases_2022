@@ -1,4 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--configuraciones basicas del html-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--titrulo de la pagina-->
+    <title>inicio</title>
+    <!--CDN de boostraps: Libreria de estilos SCSS y CSS para darle unas buena apariencia a la aplicacion
+        para mas informacion buscar documentacion de boostraps en: https://getbootstrap.com/docs/4.3/getting-started/introduction/ -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--CDN de forntawesome: Libreria de estilos SCSS y CSS incluir iconos y formas 
+         para mas informacion : https://fontawesome.com/start-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
 <body>
+    <!--Barra de navegacion-->
+    <ul class="nav">
+        <li class="nav nav-item">
+            <a class="nav-link " href="../index.html">Inicio</a>
+        </li>
+        <li class="nav ">
+            <a class="nav-link " href="../personas/personas.php">Personas</a>
+        </li>
+        <li class="nav">
+            <a class="nav-link" href="../facturas/facturas.php">Facturas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="../busquedas/busquedas.php">Busquedas</a>
+        </li>
+        <li class="nav-item nav-pills">
+            <a class="nav-link active" href="consultas.php">Consultas</a>
+        </li>
+    </ul>
     <main>
         <div class="container">
             <div class="row">
@@ -98,34 +134,6 @@
     </main>
 </body>
 <style>
-    .container {
-        margin: 3% 2%;
-    }
-    
-    .opciones {
-        border-right: 2px solid;
-    }
-    .Ganadores {
-    margin: 0% 3% 4%;
-    border: 1px solid lightslategray;
-    border-radius: 10px;
-    padding: 0% 2% 2% 2%;
-}
-h2 {
-    margin-bottom: 3%;
-}
-
-.Ganadores h3 {
-    background: var(--cuatro);
-    color: white;
-    width: 119%;
-    padding: 2% 6%;
-    position: relative;
-    border-radius: 10px;
-    left: -9%;
-    top: -12px;
-    border: 2px solid #62a163;
-}
 </style>
 
 </html>
