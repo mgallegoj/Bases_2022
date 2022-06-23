@@ -4,8 +4,8 @@
 require('../configuraciones/conexion.php');
 
 //query
-$query="SELECT * FROM empresa";
-$resultE = mysqli_query($conn, $query) or 
+$query="SELECT * FROM contrato";
+$result = mysqli_query($conn, $query) or 
 die(mysqli_error($conn));
  
 

@@ -4,16 +4,14 @@
 require('../configuraciones/conexion.php');
 
 //query
-$query="delete FROM persona where cedula='$_POST[d]'";
+$query="delete FROM empeno where codigo='$_POST[d]'";
 $result = mysqli_query($conn, $query) or 
 die(mysqli_error($conn));
  
 if($result){
-    header ("Location: personas.php");
-    
-     
+    header ("Location: empeno.php");
  }else{
-     echo "Ha ocurrido un error al Eliminar  la persona";
+     echo "Ha ocurrido un error al eliminar el empeño";
  }
  
 mysqli_close($conn);
