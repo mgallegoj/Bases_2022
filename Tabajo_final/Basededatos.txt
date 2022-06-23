@@ -6,7 +6,7 @@ CREATE TABLE fiador (
 	correo_electronico VARCHAR(30)
 )ENGINE = InnoDB;
 
-CREATE TABLE empeño (
+CREATE TABLE empeno (
     codigo INT(4) PRIMARY KEY CHECK (codigo > 0),
     valor INT(10) NOT NULL CHECK (valor > 0),
     tipo_de_objeto VARCHAR (30) NOT NULL,
@@ -21,21 +21,25 @@ CREATE TABLE contrato (
 	fecha_de_terminacion DATE NOT NULL,
     valor INT(10) NOT NULL,
     fiador INT(10),
-    empeño INT(4),
+    empeno INT(4),
     FOREIGN KEY (fiador) REFERENCES fiador(numero_de_cedula) ON DELETE CASCADE,
-    FOREIGN KEY (empeño) REFERENCES empeño(codigo) ON DELETE CASCADE,
+    FOREIGN KEY (empeno) REFERENCES empeno(codigo) ON DELETE CASCADE,
     CHECK (DATE(fecha_de_terminacion) > DATE(fecha_de_inicio))
 )ENGINE = InnoDB;
 
 INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1001,'Manuel','Calle 2 Rionegro',300140, 'mgalle@gmail.com');
 INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1002,'Jose','Calle 3 Bello',3008523, 'JoseGod@gmail.com');
 INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1003,'Geronimo','Calle 2',30085221, 'GeroGod@gmail.com');
+INSERT INTO `fiador`(`numero_de_cedula`, `nombre`, `direccion`, `numero_de_celular`, `correo_electronico`) VALUES (1004,'Geromo','Calle',30085452, 'Gero@gmail.com');
 
-INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (1,5000,'consola de juegos','Esta es una consola en perfectas condiciones', 1001);
-INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (2,10000,'DVD','Presenta fallas', 1002);
-INSERT INTO `empeño`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (3,10000000,'carro','Presenta llantas', 1003);
 
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (1052,DATE('2010-01-01'),DATE('2010-01-01'),3008000, 1002, 2);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3020,DATE('2010-01-01'),DATE('2010-01-01'),1500000, 1001, 1);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3021,DATE('2010-01-01'),DATE('2010-01-01'),1500000, 1003, 3);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeño`) VALUES (3022,DATE('2010-01-01'),DATE('2010-01-01'),15000000, 1003, 2);
+INSERT INTO `empeno`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (1,5000,'consola de juegos','Esta es una consola en perfectas condiciones', 1001);
+INSERT INTO `empeno`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (2,10000,'DVD','Presenta fallas', 1002);
+INSERT INTO `empeno`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (3,10000000,'carro','Presenta llantas', 1003);
+
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3019,DATE('2010-01-01'),DATE('2010-01-01'),3008000, 1002, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3020,DATE('2010-01-01'),DATE('2010-01-01'),1500000, 1001, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3021,DATE('2010-01-01'),DATE('2010-01-01'),1500000, 1003, 3);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3022,DATE('2010-01-01'),DATE('2010-01-01'),15000000, 1003, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3023,DATE('2010-01-01'),DATE('2010-01-01'),15000000, 1002, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3024,DATE('2010-01-01'),DATE('2010-01-01'),15000000, 1002, 1);

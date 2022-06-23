@@ -31,7 +31,7 @@
                     <?php if (isset($_GET['consulta'])) {
                         require('../configuraciones/conexion.php');
                         if ($_GET['consulta'] == '1') {
-                            $query="SELECT email, pass, nickname, SUM(IF(cantpaneles IS NULL, 0,cantpaneles)) AS sumavalor FROM usuario U LEFT JOIN factura F ON U.email = F.comprador GROUP BY U.email ORDER BY sumavalor DESC, email";
+                            $query="SELECT numero_de_cedula, nombre FROM fiador WHERE EXISTS(SELECT fiador AS fiador_emp FROM empeno WHERE empeno.fiador = numero_de_cedula) AND ((SELECT SUM(valor) FROM empeno WHERE empeno.fiador = numero_de_cedula) > 1000) AND ((SELECT COUNT(fiador) FROM contrato WHERE contrato.fiador = numero_de_cedula) >= 3) AND (SELECT COUNT(empeno) FROM contrato WHERE contrato.empeno = (SELECT codigo AS codigo_emp FROM empeno WHERE empeno.fiador = numero_de_cedula)) = 0";
                             $sumavalor = mysqli_query($conn, $query) or die(mysqli_error($conn));
                             if($sumavalor){
                                 $cont=0;
