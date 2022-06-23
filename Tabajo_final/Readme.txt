@@ -4,7 +4,3 @@ Para probar este ejemplo deben seguir los siguientes pasos:
 3. deben crear un usuario y una bd en mysql, y actualizar dentro de la carpeta configuraciones el archivo
    conexion con los datos de su usuario y bd.
 4. se debe ejecutar el script Basededatos.txt en la base de datos que crearon.
-
-Preguntas: escribir al correo, ir a monitorias o escribir al +57 3157901082
-
-Mucha suerte en sus trabajos.
