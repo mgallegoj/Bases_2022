@@ -75,7 +75,7 @@
                     <?php if (isset($_GET['consulta'])) {
                         require('../configuraciones/conexion.php');
                         if ($_GET['consulta'] == '1') {
-                            $query="SELECT numero_de_cedula, nombre FROM fiador WHERE EXISTS(SELECT fiador AS fiador_emp FROM empeno WHERE empeno.fiador = numero_de_cedula) AND ((SELECT SUM(valor) FROM empeno WHERE empeno.fiador = numero_de_cedula) > 1000) AND ((SELECT COUNT(fiador) FROM contrato WHERE contrato.fiador = numero_de_cedula) >= 3) AND (SELECT COUNT(empeno) FROM contrato WHERE contrato.empeno = (SELECT codigo AS codigo_emp FROM empeno WHERE empeno.fiador = numero_de_cedula)) = 0";
+                            $query="SELECT numero_de_cedula, nombre FROM fiador WHERE EXISTS(SELECT fiador AS fiador_emp FROM empeno WHERE empeno.fiador = numero_de_cedula) AND ((SELECT SUM(contrato.valor) AS sumvalor FROM contrato WHERE(contrato.fiador = numero_de_cedula) )> 1000) AND ((SELECT COUNT(fiador) FROM contrato WHERE contrato.fiador = numero_de_cedula) >= 3) AND (SELECT COUNT(empeno) FROM contrato WHERE contrato.empeno = (SELECT codigo AS codigo_emp FROM empeno WHERE empeno.fiador = numero_de_cedula)) = 0";
                             $consulta1 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
                             <table class="table border-rounded table-bordered table-hover">
                             <thead>
