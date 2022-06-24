@@ -63,20 +63,20 @@
                         <!--formulario para insertar una persona mediante el metodo post-->
                         <form action="actualizar_f.php" class="form-group" method="post">
                             <div class="form-group">
-                                <label for="cedula">Número de cedula</label>
+                                <label for="cedula">Número de cedula*</label>
                                 <input type="text" readonly name="cedula" value=<?=$_GET["cedula"];?> id="cedula"
                                     class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">Nombre</label>
+                                <label for="">Nombre*</label>
                                 <input type="text" name="nombre" value='<?=$_GET["nombre"];?>' id="name" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Direccion</label>
+                                <label for="">Direccion*</label>
                                 <input type="text" name="direccion" value='<?=$_GET["direccion"];?>' id="direccion" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Numero de celular</label>
+                                <label for="">Numero de celular*</label>
                                 <input type="text" name="telefono" value=<?=$_GET["telefono"];?> id="telefono" class="form-control" required>
                             </div>
                             <div class="form-group">
@@ -113,19 +113,19 @@
                         <!--formulario para insertar una persona mediante el metodo post-->
                         <form action="insertar_f.php" class="form-group" method="post">
                             <div class="form-group">
-                                <label for="cedula">Número de cédula</label>
+                                <label for="cedula">Número de cédula*</label>
                                 <input type="text" name="cedula" id="cedula" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Nombre</label>
+                                <label for="">Nombre*</label>
                                 <input type="text" name="name" id="name" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Dirección</label>
+                                <label for="">Dirección*</label>
                                 <input type="text" name="direccion" id="direccion" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Número de celular</label>
+                                <label for="">Número de celular*</label>
                                 <input type="text" name="telefono" id="telefono" class="form-control" required>
                             </div>
                             <div class="form-group">

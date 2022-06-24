@@ -63,19 +63,19 @@
                         <!--formulario para insertar una persona mediante el metodo post-->
                         <form action="actualizar_e.php" class="form-group" method="post">
                             <div class="form-group">
-                                <label for="codigo">Código</label>
+                                <label for="codigo">Código*</label>
                                 <input type="text" readonly name="codigo" value=<?=$_GET["codigo"];?> id="codigo" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">Valor</label>
+                                <label for="">Valor*</label>
                                 <input type="text" name="valor" value='<?=$_GET["valor"];?>' id="valor" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Tipo de objeto</label>
+                                <label for="">Tipo de objeto*</label>
                                 <input type="text" name="tipo" value='<?=$_GET["tipo"];?>' id="tipo" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Descripción</label>
+                                <label for="">Descripción*</label>
                                 <input type="text" name="descripcion" value=<?=$_GET["descripcion"];?> id="descripcion" class="form-control" required>
                             </div>
                             
@@ -119,19 +119,19 @@
                         <!--formulario para insertar una persona mediante el metodo post-->
                         <form action="insertar_e.php" class="form-group" method="post">
                             <div class="form-group">
-                                <label for="codigo">Código</label>
+                                <label for="codigo">Código*</label>
                                 <input type="text" name="codigo" id="codigo" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Valor</label>
+                                <label for="">Valor*</label>
                                 <input type="text" name="valor" id="valor" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Tipo de objeto</label>
+                                <label for="">Tipo de objeto*</label>
                                 <input type="text" name="tipo" id="tipo" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Descripción</label>
+                                <label for="">Descripción*</label>
                                 <input type="text" name="descripcion" id="descripcion" class="form-control" required>
                             </div>
                             <div class="form-group">
