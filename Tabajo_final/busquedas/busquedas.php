@@ -56,20 +56,10 @@
                         ¿Qué busqueda desea realizar?
                     </div>
                     <div class="card-body">
-                        <form action="buscar.php" method="get">
+                        <form action="busquedas.php" method="get">
                             <div class="form-group">
                                 <input class="form-check-input" type="radio" name="busqueda" value="1">
                                 <label class="form-check-label" for="busqueda">Busqueda 1</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Ingrese el numero minimo de empenos (n1)</label>
-                                <input class="form-control" type="number" min=1 name="sup" id="sup">
-                                <label>Ingrese el número maximo de empenos (n2)</label>
-                                <input class="form-control" type="number" min=1 name="inf" id="inf">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-check-input" type="radio" name="busqueda" value="2">
-                                <label class="form-check-label" for="busqueda">Busqueda 2</label>
                             </div>
                             <div class="form-group">
                                 <label>Ingrese la fecha inicial (f1)</label>
@@ -78,6 +68,20 @@
                             <div class="form-group">
                                 <label>Ingrese la fecha final (f2)</label>
                                 <input class="form-control" type="date" name="fecha2" id="fecha2">
+                            </div>
+                            <div class="form-group">
+                                <label>Ingrese el numero de empenos (n)</label>
+                                <input class="form-control" type="number" min=0 name="emp" id="emp">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-check-input" type="radio" name="busqueda" value="2">
+                                <label class="form-check-label" for="busqueda">Busqueda 2</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Ingrese el numero minimo de empenos (n1)</label>
+                                <input class="form-control" type="number" min=0 name="inf" id="inf">
+                                <label>Ingrese el número maximo de empenos (n2)</label>
+                                <input class="form-control" type="number" min=0 name="sup" id="sup">
                             </div>
                             <div class="form-group d-grid gap-2">
                                 <input type="submit" class="btn btn-primary" value="Buscar">
@@ -88,10 +92,81 @@
                 <div class="col-md-9 respuesta">
                     <h2>Resultados de la busqueda</h2>
                     <div class="row">
+                    <?php if (isset($_GET['busqueda'])) {
+                        require('../configuraciones/conexion.php'); 
+                        if ($_GET['busqueda'] == '1') {
+                            $fecha1= date_create_from_format("Y-m-d",$_GET['fecha1'])->format("Y/m/d");
+                            $fecha2= date_create_from_format("Y-m-d",$_GET['fecha2'])->format("Y/m/d");
+                            $emp = intval($_GET["emp"]);                                                                                                                                                                                                                                                                             
+                            $query=sprintf("SELECT Cedula, Celular FROM (SELECT Cedula, Celular, COUNT(*) AS contador FROM (SELECT numero_de_cedula as Cedula, numero_de_celular AS celular FROM fiador LEFT JOIN contrato on fiador.numero_de_cedula = contrato.fiador WHERE (contrato.fecha_de_inicio BETWEEN '%s' and '%s') ) AS solofecha GROUP BY Cedula) AS final WHERE contador = '%s';", $fecha1,$fecha2,$emp);
+                            $busqueda1 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
+                            <table class="table border-rounded table-bordered table-hover">
+                            <thead>
+                                    <tr class="table-dark">
+                                        <th scope="col">Cedula</th>
+                                        <th scope="col">Celular</th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                    if($busqueda1){
+                                        foreach($busqueda1 as $fila){
+                                    ?>
+                                        <tr>
+                                            <td>
+                                                <?=$fila['Cedula'];?>
+                                            </td>
+                                            <td>
+                                                <?=$fila['Celular'];?>
+                                            </td>
+                                        </tr>
+                                            <?php
 
+                                        }
+                                    }
+            
 
+                        } else{         
+                                $inf = intval($_GET["inf"]);
+                                $sup = intval($_GET["sup"]);                                                                                                                                                                                                                                                                                                                              
+                                $query=sprintf("SELECT Codigo, tipo, contador FROM (SELECT Codigo, tipo, COUNT(*) AS contador FROM (SELECT empeno.codigo AS Codigo, tipo_de_objeto AS Tipo FROM empeno LEFT JOIN contrato ON empeno.codigo = contrato.empeno) AS pito GROUP BY Codigo) AS finale WHERE contador  BETWEEN '%s' AND '%s';",$inf,$sup);
+                                $busqueda2 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
+                                <table class="table border-rounded table-bordered table-hover">
+                                    <thead>
+                                        <tr class="table-dark">
+                                            <th scope="col">Codigo</th>
+                                            <th scope="col">Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        if($busqueda2){
+                                            foreach($busqueda2 as $fila){
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    <?=$fila['Codigo'];?>
+                                                </td>
+                                                <td>
+                                                    <?=$fila['tipo'];?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            
+                                            }
+                                        }
 
-
+                                        
+                                }       
+                            }?>                                            
+                                        </tbody>
+                                
+                                </table>
+                        
+                    </div>
+                </div>            
+            </div>
+        </div>      
+    </main>
 </body>
-
 </html>
