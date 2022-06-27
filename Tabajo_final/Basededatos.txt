@@ -37,9 +37,9 @@ INSERT INTO `empeno`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador
 INSERT INTO `empeno`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (2,10000,'DVD','Presenta fallas', 1002);
 INSERT INTO `empeno`(`codigo`, `valor`, `tipo_de_objeto`, `descripcion`, `fiador`) VALUES (3,10000000,'carro','Presenta llantas', 1003);
 
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3019,DATE('2010-01-01'),DATE('2011-01-01'),3008000, 1002, 1);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3020,DATE('2010-01-01'),DATE('2011-01-01'),1500000, 1001, 1);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3021,DATE('2010-01-01'),DATE('2011-01-01'),1500000, 1003, 3);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3022,DATE('2010-01-01'),DATE('2011-01-01'),15000000, 1003, 1);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3023,DATE('2010-01-01'),DATE('2011-01-01'),15000000, 1002, 1);
-INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3024,DATE('2010-01-01'),DATE('2011-01-01'),15000000, 1002, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3019,DATE('2022-01-01'),DATE('2022-02-01'),3008000, 1002, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3020,DATE('2022-01-01'),DATE('2022-03-01'),1500000, 1001, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3021,DATE('2022-01-01'),DATE('2022-05-01'),1500000, 1003, 3);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3022,DATE('2022-01-01'),DATE('2022-02-01'),15000000, 1003, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3023,DATE('2022-01-01'),DATE('2022-08-01'),15000000, 1002, 1);
+INSERT INTO `contrato`(`codigo`, `fecha_de_inicio`, `fecha_de_terminacion`, `valor`, `fiador`, `empeno`) VALUES (3024,DATE('2022-01-01'),DATE('2022-12-01'),15000000, 1002, 1);
