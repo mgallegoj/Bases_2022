@@ -1,5 +1,5 @@
 # Bases_2022
-Esta es la última entrega de bases de datos 
+Esta es la última entrega de bases de datos I
 
 TRABAJO REALIZADO POR:
 - Jerónimo Gómez Restrepo👽
