@@ -45,7 +45,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link active" href="../busquedas/busquedas.php">Busquedas</a>
+            <a class="nav-link active" href="../busquedas/busquedas.php">Búsquedas</a>
         </li>
     </ul>
     <main>
@@ -53,13 +53,13 @@
             <div class="row">
                 <div class="col-md-3 opciones">
                     <div class="card-header">
-                        ¿Qué busqueda desea realizar?
+                        ¿Qué búsqueda desea realizar?
                     </div>
                     <div class="card-body">
                         <form action="busquedas.php" method="get">
                             <div class="form-group">
                                 <input class="form-check-input" type="radio" name="busqueda" value="1">
-                                <label class="form-check-label" for="busqueda">Busqueda 1</label>
+                                <label class="form-check-label" for="busqueda">Búsqueda 1</label>
                             </div>
                             <div class="form-group">
                                 <label>Ingrese la fecha inicial (f1)</label>
@@ -70,17 +70,17 @@
                                 <input class="form-control" type="date" name="fecha2" id="fecha2">
                             </div>
                             <div class="form-group">
-                                <label>Ingrese el numero de empenos (n)</label>
+                                <label>Ingrese el número de empeños (n)</label>
                                 <input class="form-control" type="number" min=0 name="emp" id="emp">
                             </div>
                             <div class="form-group">
                                 <input class="form-check-input" type="radio" name="busqueda" value="2">
-                                <label class="form-check-label" for="busqueda">Busqueda 2</label>
+                                <label class="form-check-label" for="busqueda">Búsqueda 2</label>
                             </div>
                             <div class="form-group">
-                                <label>Ingrese el numero minimo de empenos (n1)</label>
+                                <label>Ingrese el número mínimo de empeños (n1)</label>
                                 <input class="form-control" type="number" min=0 name="inf" id="inf">
-                                <label>Ingrese el número maximo de empenos (n2)</label>
+                                <label>Ingrese el número máximo de empeños (n2)</label>
                                 <input class="form-control" type="number" min=0 name="sup" id="sup">
                             </div>
                             <div class="form-group d-grid gap-2">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="col-md-9 respuesta">
-                    <h2>Resultados de la busqueda</h2>
+                    <h2>Resultados de la búsqueda</h2>
                     <div class="row">
                     <?php if (isset($_GET['busqueda'])) {
                         require('../configuraciones/conexion.php'); 
@@ -103,7 +103,7 @@
                             <table class="table border-rounded table-bordered table-hover">
                             <thead>
                                     <tr class="table-dark">
-                                        <th scope="col">Cedula</th>
+                                        <th scope="col">Cédula</th>
                                         <th scope="col">Celular</th>
                                     </tr>
                             </thead>
@@ -134,7 +134,7 @@
                                 <table class="table border-rounded table-bordered table-hover">
                                     <thead>
                                         <tr class="table-dark">
-                                            <th scope="col">Codigo</th>
+                                            <th scope="col">Código</th>
                                             <th scope="col">Tipo</th>
                                         </tr>
                                     </thead>
