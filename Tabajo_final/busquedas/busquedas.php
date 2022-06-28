@@ -98,7 +98,7 @@
                             $fecha1= date_create_from_format("Y-m-d",$_GET['fecha1'])->format("Y/m/d");
                             $fecha2= date_create_from_format("Y-m-d",$_GET['fecha2'])->format("Y/m/d");
                             $emp = intval($_GET["emp"]);                                                                                                                                                                                                                                                                             
-                            $query=sprintf("SELECT Cedula, Celular FROM (SELECT Cedula, Celular, COUNT(*) AS contador FROM (SELECT numero_de_cedula as Cedula, numero_de_celular AS celular FROM fiador LEFT JOIN contrato on fiador.numero_de_cedula = contrato.fiador WHERE (contrato.fecha_de_inicio BETWEEN '%s' and '%s') ) AS solofecha GROUP BY Cedula) AS final WHERE contador = '%s';", $fecha1,$fecha2,$emp);
+                            $query=sprintf("SELECT numero_de_cedula, numero_de_celular FROM fiador WHERE (SELECT COUNT(*) FROM contrato WHERE(contrato.fiador = fiador.numero_de_cedula AND contrato.fecha_de_inicio BETWEEN '%s' AND '%s')) = '%s';", $fecha1,$fecha2,$emp);
                             $busqueda1 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
                             <table class="table border-rounded table-bordered table-hover">
                             <thead>
@@ -114,10 +114,10 @@
                                     ?>
                                         <tr>
                                             <td>
-                                                <?=$fila['Cedula'];?>
+                                                <?=$fila['numero_de_cedula'];?>
                                             </td>
                                             <td>
-                                                <?=$fila['Celular'];?>
+                                                <?=$fila['numero_de_celular'];?>
                                             </td>
                                         </tr>
                                             <?php
@@ -129,7 +129,7 @@
                         } else{         
                                 $inf = intval($_GET["inf"]);
                                 $sup = intval($_GET["sup"]);                                                                                                                                                                                                                                                                                                                              
-                                $query=sprintf("SELECT Codigo, tipo, contador FROM (SELECT Codigo, tipo, COUNT(*) AS contador FROM (SELECT empeno.codigo AS Codigo, tipo_de_objeto AS Tipo FROM empeno LEFT JOIN contrato ON empeno.codigo = contrato.empeno) AS pito GROUP BY Codigo) AS finale WHERE contador  BETWEEN '%s' AND '%s';",$inf,$sup);
+                                $query=sprintf("SELECT codigo, tipo_de_objeto FROM empeno WHERE((SELECT COUNT(*) FROM contrato WHERE contrato.empeno = empeno.codigo) BETWEEN '%s' and '%s');",$inf,$sup);
                                 $busqueda2 = mysqli_query($conn, $query) or die(mysqli_error($conn));?>
                                 <table class="table border-rounded table-bordered table-hover">
                                     <thead>
@@ -145,10 +145,10 @@
                                         ?>
                                             <tr>
                                                 <td>
-                                                    <?=$fila['Codigo'];?>
+                                                    <?=$fila['codigo'];?>
                                                 </td>
                                                 <td>
-                                                    <?=$fila['tipo'];?>
+                                                    <?=$fila['tipo_de_objeto'];?>
                                                 </td>
                                             </tr>
                                             <?php
