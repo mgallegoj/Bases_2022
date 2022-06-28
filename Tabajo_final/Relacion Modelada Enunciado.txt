@@ -1,0 +1,14 @@
+Para la realización del segundo punto, algunas políticas de la empresa cambian:
+
+Un contrato deberá contar con un código de identificación (único), la fecha de inicio, la fecha de terminación y el valor por el cual 
+será arrendado el inmueble. El contrato podrá estar respaldado por un empeño o por un fiador (ya no es obligatorio que cuente con 
+alguno de los dos, y puede tener los dos al tiempo).
+
+Del fiador se necesita guardar el nombre completo, el número de cédula (único), la dirección de donde vive, el número de celular y un 
+correo electrónico (opcional). Un fiador puede estar respaldando a muchos contratos a la vez.
+
+Del empeño se necesita guardar su valor (en COP), el tipo de objeto (pueden ser joyas, vehículos, muebles, obras de arte, 
+electrodoméstico, entre otros), una descripción y un código de identificación (único). Un empeño puede estar respaldando a muchos 
+contratos a la vez.
+
+Además existe la posibilidad de que un empeño sea la pertenencia de un único fiador.
